@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Certificates</title>
+</head>
+<body>
+    <h1>Domain Certificates</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Domain</th>
+            <th>OSB</th>
+            <th>UG</th>
+            <th>Certificate Owner</th>
+            <th>Expire Date</th>
+            <th>Actions</th>
+        </tr>
+        {% for cert in certificates %}
+        <tr>
+            <td>{{ cert.id }}</td>
+            <td>{{ cert.domain }}</td>
+            <td>{{ cert.osb }}</td>
+            <td>{{ cert.ug }}</td>
+            <td>{{ cert.certificate_owner }}</td>
+            <td>{{ cert.expire_date }}</td>
+            <td>
+                <button onclick="updateCertificate({{ cert.id }})">Update</button>
+                <button onclick="deleteCertificate({{ cert.id }})">Delete</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>Add New Certificate</h2>
+    <form id="addForm">
+        <input type="text" name="domain" placeholder="Domain" required>
+        <input type="text" name="osb" placeholder="OSB" required>
+        <input type="text" name="ug" placeholder="UG" required>
+        <input type="text" name="certificate_owner" placeholder="Certificate Owner" required>
+        <input type="date" name="expire_date" required>
+        <button type="submit">Add Certificate</button>
+    </form>
+    <script>
+        // JavaScript kodları buraya eklenecek (AJAX çağrıları için)
+    </script>
+</body>
+</html>
+
