@@ -1,0 +1,136 @@
+{% extends "index.html" %}
+{% block content %}
+<h1>Sertifikalar</h1>
+<button onclick="showAddForm()">Yeni Ekle</button>
+<table>
+    <tr>
+        <th>Domain</th>
+        <th>OSB</th>
+        <th>UG</th>
+        <th>Sertifika Sahibi</th>
+        <th>Son Kullanma Tarihi</th>
+        <th>Actions</th>
+    </tr>
+    {% for cert in certificates %}
+    <tr>
+        <td>{{ cert.domain }}</td>
+        <td>{{ cert.osb }}</td>
+        <td>{{ cert.ug }}</td>
+        <td>{{ cert.certificate_owner }}</td>
+        <td>{{ cert.expire_date }}</td>
+        <td>
+            <button onclick="showUpdateForm({{ cert.id }})">Update</button>
+            <button onclick="deleteRecord({{ cert.id }})">Delete</button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div id="addForm" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Yeni Sertifika Ekle</h2>
+        <form id="addCertForm">
+            <input type="text" name="domain" placeholder="Domain" required>
+            <input type="text" name="osb" placeholder="OSB">
+            <input type="text" name="ug" placeholder="UG">
+            <input type="text" name="certificate_owner" placeholder="Sertifika Sahibi">
+            <input type="date" name="expire_date">
+            <button type="submit">Ekle</button>
+        </form>
+    </div>
+</div>
+
+<div id="updateForm" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Sertifika Güncelle</h2>
+        <form id="updateCertForm">
+            <input type="hidden" name="id">
+            <input type="text" name="domain" placeholder="Domain" required>
+            <input type="text" name="osb" placeholder="OSB">
+            <input type="text" name="ug" placeholder="UG">
+            <input type="text" name="certificate_owner" placeholder="Sertifika Sahibi">
+            <input type="date" name="expire_date">
+            <button type="submit">Güncelle</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function showAddForm() {
+    document.getElementById('addForm').style.display = 'block';
+}
+
+function showUpdateForm(id) {
+    // Burada AJAX ile mevcut veriyi çekip formu doldurabilirsiniz
+    document.getElementById('updateForm').style.display = 'block';
+    document.querySelector('#updateCertForm input[name="id"]').value = id;
+}
+
+function deleteRecord(id) {
+    if (confirm('Bu kaydı silmek istediğinizden emin misiniz?')) {
+        fetch(`/delete/${id}`, { method: 'DELETE' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Silme işlemi başarısız oldu.');
+                }
+            });
+    }
+}
+
+document.getElementById('addCertForm').onsubmit = function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch('/add', {
+        method: 'POST',
+        body: formData
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              location.reload();
+          } else {
+              alert('Ekleme işlemi başarısız oldu.');
+          }
+      });
+};
+
+document.getElementById('updateCertForm').onsubmit = function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const id = formData.get('id');
+    fetch(`/update/${id}`, {
+        method: 'PUT',
+        body: formData
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              location.reload();
+          } else {
+              alert('Güncelleme işlemi başarısız oldu.');
+          }
+      });
+};
+
+// Modal kapatma işlevi
+const modals = document.getElementsByClassName('modal');
+const spans = document.getElementsByClassName('close');
+
+for (let i = 0; i < spans.length; i++) {
+    spans[i].onclick = function() {
+        modals[i].style.display = "none";
+    }
+}
+
+window.onclick = function(event) {
+    for (let i = 0; i < modals.length; i++) {
+        if (event.target == modals[i]) {
+            modals[i].style.display = "none";
+        }
+    }
+}
+</script>
+{% endblock %}
