@@ -3,3 +3,4 @@ Flask-SQLAlchemy
 flask-login
 bcrypt
 psycopg2-binary
+pyodbc==4.0.32

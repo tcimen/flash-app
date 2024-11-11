@@ -3,52 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certifications Radar</title>
+    <title>My Flask App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .flash-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            display: none;
+        }
+
+        .flash-message.success {
+            background-color: #4CAF50;
+        }
+
+        .flash-message.error {
+            background-color: #f44336;
+        }
+
+        .flash-message.info {
+            background-color: #2196F3;
+        }
+    </style>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('certifications') }}">Certifications</a></li>
-            <li class="right">
-                {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('logout') }}">Çıkış</a>
-                {% else %}
-                    <a href="{{ url_for('login') }}">Giriş</a>
-                {% endif %}
-            </li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('certifications') }}">Certifications</a></li>
+                <li class="right">
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('logout') }}">Çıkış</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}">Giriş</a>
+                    {% endif %}
+                </li>
+            {% endif %}
         </ul>
     </nav>
     <div id="content">
         {% block content %}{% endblock %}
     </div>
-</body>
-</html>
 
-    <!-- Modal yapıları -->
-    <div id="addForm" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Yeni Sertifika Ekle</h2>
-            <form id="addCertForm">
-                <!-- Form alanları buraya gelecek -->
-            </form>
-        </div>
-    </div>
+    <div id="flash-message" class="flash-message"></div>
 
-    <div id="updateForm" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Sertifika Güncelle</h2>
-            <form id="updateCertForm">
-                <!-- Form alanları buraya gelecek -->
-            </form>
-        </div>
-    </div>
+    <script type="text/javascript">
+        function showFlashMessage(message, category) {
+            var flashMessage = document.getElementById('flash-message');
+            flashMessage.textContent = message;
+            flashMessage.className = 'flash-message ' + category;
+            flashMessage.style.display = 'block';
+            setTimeout(function() {
+                flashMessage.style.display = 'none';
+            }, 3000); // 3 saniye sonra kaybolur
+        }
 
-    <script>
-        // JavaScript kodları buraya gelecek
+        document.addEventListener('DOMContentLoaded', function() {
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        showFlashMessage('{{ message }}', '{{ category }}');
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        });
     </script>
 </body>
 </html>

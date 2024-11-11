@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mssql-configmap
+data:
+  MSSQL_HOST: "mssql-service"
+  MSSQL_PORT: "1433"
+  MSSQL_DB: "master"

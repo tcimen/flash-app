@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Flask App</title>
+    
+    <!-- Genel stil kuralları için base.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Sadece login sayfasında değilse navigasyonu göster -->
+    {% if request.endpoint != 'login' %}
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li class="right"><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    {% endif %}
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

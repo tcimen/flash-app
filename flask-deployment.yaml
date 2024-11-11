@@ -19,19 +19,22 @@ spec:
         ports:
         - containerPort: 5000
         env:
-        - name: POSTGRES_HOST
-          value: "192.168.64.1"
-        - name: POSTGRES_PORT
-          value: "$(POSTGRES_SERVICE_SERVICE_PORT)"
-        - name: POSTGRES_DB
-          value: "domain_certificates"
-        - name: POSTGRES_USER
-          value: "devops"
-        - name: POSTGRES_PASSWORD
+        - name: MSSQL_HOST
+          value: "mssql-service.my-flask-app.svc.cluster.local"
+        - name: MSSQL_PORT
+          value: "1433"
+        - name: MSSQL_DB
+          value: "master"
+        - name: MSSQL_USER
           valueFrom:
             secretKeyRef:
-              name: postgres-secrets
-              key: postgres-password
+              name: mssql-secrets
+              key: mssql-user
+        - name: MSSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mssql-secrets
+              key: mssql-password
         - name: FLASK_SECRET_KEY
           valueFrom:
             secretKeyRef:

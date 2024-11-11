@@ -10,14 +10,14 @@ logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 
-# PyODBC bağlantı dizgesi ile Microsoft ODBC Driver 18'i kullanıyoruz
+# PyODBC bağlantı dizgesi ile aynı parametreleri kullanalım
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     f"mssql+pyodbc://{os.getenv('MSSQL_USER')}:"
     f"{os.getenv('MSSQL_PASSWORD')}@"
     f"{os.getenv('MSSQL_HOST')}:"
     f"{os.getenv('MSSQL_PORT')}/"
     f"{os.getenv('MSSQL_DB')}?"
-    "driver=ODBC+Driver+18+for+SQL+Server"
+    "driver=FreeTDS&TDS_Version=7.3"
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'fallback_secret_key')
@@ -149,4 +149,4 @@ def unauthorized(error):
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)

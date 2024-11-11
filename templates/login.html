@@ -1,9 +1,31 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
+{% block head %}
+	<!-- Login sayfasına özel stil -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
 {% block content %}
-<h2>Giriş</h2>
-<form method="POST">
-    <input type="text" name="username" placeholder="Kullanıcı Adı" required>
-    <input type="password" name="password" placeholder="Şifre" required>
-    <input type="submit" value="Giriş Yap">
-</form>
+<div class="login-container">
+	<!-- Flash Mesajları -->
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	    {% if messages %}
+	        <ul class="flash-messages">
+	            {% for category, message in messages %}
+	                <li class="flash-message {{ category }}">{{ message }}</li>
+	            {% endfor %}
+	        </ul>
+	    {% endif %}
+	{% endwith %}
+
+	<!-- Giriş Formu -->
+	<form method="POST">
+	    <label for="username">Kullanıcı Adı</label>
+	    <input type="text" id="username" name="username" placeholder="Kullanıcı Adı" required>
+
+	    <label for="password">Şifre</label>
+	    <input type="password" id="password" name="password" placeholder="Şifre" required>
+
+	    <input type="submit" value="Giriş Yap">
+	</form>
+</div>
 {% endblock %}

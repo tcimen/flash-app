@@ -1,0 +1,46 @@
+/* Sayfanın tamamını kaplayan bir konteyner */
+body, html {
+    height: 100%;                /* Sayfa yüksekliği %100 */
+    margin: 0;                   /* Varsayılan boşlukları sıfırla */
+    display: flex;               /* Flexbox kullanımı */
+    justify-content: center;     /* Yatayda ortala */
+    align-items: center;         /* Dikeyde ortala */
+    font-family: Arial, sans-serif;
+}
+
+/* Login formunun stili */
+.login-container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 100%;                 /* Genişlik %100 */
+    max-width: 400px;            /* Maksimum genişlik 400px */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+}
+
+/* Input alanlarının stili */
+input[type=text], input[type=password] {
+    width: 100%;                 /* Genişlik %100 */
+    padding: 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Submit butonunun stili */
+input[type=submit] {
+    width: 100%;                 /* Buton genişliği %100 */
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;   /* Hover efekti */
+}

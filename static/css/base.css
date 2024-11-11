@@ -90,39 +90,17 @@ th {
 .close:hover,
 .close:focus {
     color: black; /* Üzerine gelindiğinde siyah olur */
-    text-decoration: none;
-    cursor: pointer; /* Fare işareti el şeklinde olur */
 }
 
 /* Flash Mesajları Stili (Başarı, Hata, Bilgi) */
 
 .flash-messages {
     list-style-type: none; /* Liste işaretleri yok */
-    padding: 0;
 }
 
 .flash-message {
     padding: 10px;
     margin-bottom: 10px;
-    border-radius: 5px; /* Köşeleri yuvarlatılmış kutular */
-}
-
-.flash-message.success {
-    background-color: #dff0d8; /* Başarı mesajı için açık yeşil arka plan */
-    border-color: #d6e9c6;
-    color: #3c763d; /* Yeşil yazı rengi */
-}
-
-.flash-message.error {
-    background-color: #f2dede; /* Hata mesajı için açık kırmızı arka plan */
-    border-color: #ebccd1;
-    color: #a94442; /* Kırmızı yazı rengi */
-}
-
-.flash-message.info {
-    background-color: #d9edf7; /* Bilgi mesajı için açık mavi arka plan */
-    border-color: #bce8f1;
-    color: #31708f; /* Mavi yazı rengi */
 }
 
 /* Flash Mesajlarının Sabit Pozisyonu ve Görünümü */
@@ -132,11 +110,6 @@ th {
     top: 20px;
     left: 50%;
     transform: translateX(-50%); /* Yatayda tam ortalama */
-    padding: 10px 20px;
-    border-radius: 5px;
-    color:white;      /* Yazı rengi beyaz olacak şekilde ayarlandı. */
-	font-weight:bold;
-	z-index :1000 ;  	/* Diğer içeriklerin üzerinde görünmesini sağlar. */ 
 }
 
 /* Başarı Mesajı Renkleri (Yeşil)*/
@@ -152,88 +125,3 @@ th {
 .flash-message.info{
 	background-color:#2196F3 ;
 } 
-
-/* Login Form Stilleri */
-
-input[type=text], input[type=password]{
-	width :100% ;
-	padding :12px20 px ;
-	margin :8px0 ;
-	display:inline-block ;
-	border :1 pxsolid#ccc ;
-	border-radius :4 px ;
-	box-sizing:border-box ;
-} 
-
-input[type=submit]{
-	width :100% ;
-	background-color:#4CAF50 ;
-	color:white ;
-	padding :14 px20 px ;
-	margin :8 px0 ;
-	border:none ;
-	border-radius :4 px ;
-	cursor:pointer ;
-} 
-
-input[type=submit]:hover{
-	background-color:#45a049 ; 
-} 
-
-.login-container{
-	border-radius :5 px ;
-	background-color:#f2f2f2 ;
-	padding :20 px ;
-	max-width :400 px ;
-	margin :0auto ;/* Ortalamak için */ 
-} 
-
-.flash-messages{
-	list-style-type:none ;
-	padding :0 ; 
-} 
-
-.flash-message{
-	padding :10 px ;
-	margin-bottom :10 px ;
-	border-radius :4 px ; 
-} 
-
-.flash-message.error{
-	background-color:#f44336 ;/* Hata mesajı için kırmızı arka plan */ 
-	color:white ; 
-} 
-
-.flash-message.success{
-	background-color:#4CAF50 ;/* Başarı mesajı için yeşil arka plan */ 
-	color:white ; 
-} 
-
-/* Tablonun Ortalanması ve Stil Ayarları */
-
-#customers{
-	font-family :Arial ,Helvetica ,sans-serif ;
-	border-collapse :collapse ;
-	width :100% ; 
-} 
-
-#customers td,#customers th{
-	border :1 pxsolid#ddd ;
-	padding :8 px ;
-	text-align:center ;/* Tüm hücrelerdeki metinleri ortala */ 
-} 
-
-#customers tr:nth-child(even){
-	background-color:#f2f2f2 ; 
-} 
-
-#customers tr:hover{
-	background-color:#ddd ; 
-} 
-
-#customers th{
-	padding-top :12 px ;
-	padding-bottom :12 px ;
-	background-color:#FF0000 ;/* Kırmızı arka plan */ 
-	color:white ; 
-}
